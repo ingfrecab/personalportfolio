@@ -1,7 +1,15 @@
 <?php
 namespace App\Models;
-require_once 'BaseElement.php';
+use Illuminate\Database\Eloquent\Model;
+//require_once 'BaseElement.php';
 
-class Project extends BaseElement {
+class Project extends Model {
+
+    public function getDurationAsString($months) {
+        $years = floor($this->months / 12);
+        $extraMonths = $this->months % 12;
+      
+        return "Project duration: $years years $extraMonths months";
+      }
 
 }

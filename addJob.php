@@ -58,3 +58,41 @@ $job->save();
 
 </body>
 </html>
+
+
+<?php
+    
+//url del servicio
+//$urlServicioPqrs='http://172.17.24.254/orfeo2017/soap/servicioPqrs.php?WSDL';
+$urlServicioPqrs='https://orfeo.minsalud.gov.co/orfeo/soap/servicioPqrs.php?WSDL';
+//declaramos el cliente soap
+//parametros
+
+//Lamado de Clase PDF
+  
+ini_set('display_errors', '1');
+error_reporting(E_ALL & ~E_NOTICE);    
+$idClickSalud = 26;
+$epsNombre = "EPS de prueba.";
+$mensaje = "Esta es una prueba.";
+        
+$param = array(
+	"idClickSalud"=>$idClickSalud,
+    "nombres"=>'Prueba de radicación CCONTACTO',
+    "apellidos"=>'Of 2',
+	"tipoDoc"=>1, 
+    "cedula"=>'1015422295',
+	"telefono"=>55555555,
+    "email"=>'ing@hotmail.com',  
+    "epsNombre"=>$epsNombre, 
+    "mensaje"=>$mensaje);
+		
+    $clientPqrs=new SoapClient($urlServicioPqrs);
+    $respuestaPqrs = $clientPqrs->__soapCall('wbsClickMinSalud',$param); 
+	//echo "<PRE>".print_r($respuestaPqrs , true)."</PRE>";
+    echo "El radicado #".$respuestaPqrs["numeroRadicado"]." fue registrado correctamente.<BR><BR>";
+    echo "El idClick #".$respuestaPqrs["idClickSalud"]." fue registrado correctamente.<BR><BR>";
+    echo "El Codigo de Verificación: es el ".$respuestaPqrs["codVeri"].".<BR><BR>";
+    //echo "<a href='generatePDF.php?radicadoNume=".$respuestaPqrs["numeroRadicado"]."'> Generar (.PDF) </a>";      
+    echo"<HR>";    
+  

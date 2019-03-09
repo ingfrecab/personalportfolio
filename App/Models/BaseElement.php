@@ -1,9 +1,9 @@
 <?php
 namespace App\Models;
 require_once 'Printable.php';
+use Illuminate\Database\Eloquent\Model;
 
-
-class BaseElement implements Printable
+class BaseElement extends Model implements Printable
 {
     protected $title;
     public $description;
